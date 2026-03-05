@@ -6,7 +6,15 @@ function App() {
 	let [alerts, setAlerts] = useState(data);
 	let [close, setClose] = useState(true);
 	let [hidden, setHidden] = useState('');
+    let [isOn, setIsOn] = useState(false);
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIsOn(true);
+        }, 800);
+
+        return () => clearTimeout(timer);
+    }, []);
 	// let alertsClose = () => {
 	// 	setClose(!close);
 	// }
@@ -38,6 +46,7 @@ function App() {
 	// console.log(useState(data))
 	return (
 		<div className="App">
+            <div className={`box ${isOn ? "on" : ""}`}>
 			{
 				alerts.map((a, i) => {
 					return (
@@ -76,6 +85,7 @@ function App() {
 			{
 				close == true ? <alerts2 alerts={alerts} close={close} setClose={setClose} alertsClose2={btnConfirm} btnClose2={btnClose} option2={hidden} /> : null
 			} */}
+            </div>
 		</div>
 	);
 }
