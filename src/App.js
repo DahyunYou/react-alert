@@ -12,17 +12,17 @@ function App() {
 	// }
 
 	// AI 활용
-	let btnClose = (i) => {
-		// 여기에서 i는 파라미터(0, 1, 2... 같은 번호가 들어옴)
-		let close = [...hidden];
-		close[i] = 'hidden';
-		setHidden(close)
-		// document.querySelector('.btn_close').addEventListener('click', function() {
-		// 	document.querySelector('.alerts').classList.add('hidden');
-		// })
-		// if (option1 == 'hidden') setHidden('')
-		// else setHidden('hidden')
-	};
+	// let btnClose = (i) => {
+	// 	// 여기에서 i는 파라미터(0, 1, 2... 같은 번호가 들어옴)
+	// 	let close = [...hidden];
+	// 	close[i] = 'hidden';
+	// 	setHidden(close)
+	// 	// document.querySelector('.btn_close').addEventListener('click', function() {
+	// 	// 	document.querySelector('.alerts').classList.add('hidden');
+	// 	// })
+	// 	// if (option1 == 'hidden') setHidden('')
+	// 	// else setHidden('hidden')
+	// };
 
 	// let btnConfirm = () => {
 	// 	// document.querySelector('.btn_confirm').addEventListener('click', function() {
@@ -45,13 +45,15 @@ function App() {
 						? <Alert
 							alertItem={alerts[i]}
 							alerts={alerts}
+                            hidden={hidden}
 							index={i}
 							key={i}
 							close={close}
-							setClose={setClose}
+							// setClose={setClose}
 							setAlerts={setAlerts}
+                            setHidden={setHidden}
 							// alertsClose1={btnConfirm}
-							btnClose={btnClose}
+							// btnClose={btnClose}
 							// btnConfirm={btnConfirm}
 							// option1={hidden}
 							/>
@@ -83,7 +85,12 @@ function Alert(props) {
 	// console.log(props.alerts)
 
 	return (
-		<div className='alert'>
+		<div
+        // className={`alert ${props.hidden[props.index]}`}
+        // AI활용
+        className={`alert ${props.hidden[props.index] ? props.hidden[props.index] : ''}`}
+        >
+        {/* <div className='alert'> */}
 			<span className={'ico' + (parseInt(props.alertItem.Code) + 1)}></span>
 			<p>{props.alertItem.Msg}</p>
 
@@ -104,7 +111,13 @@ function Alert(props) {
 				onClick={
 					// props.btnClose
 					() => {
-						console.log(props.btnClose(props.index))
+                        let hide = [...props.hidden];
+                        hide[props.index] = 'hidden';
+                        props.setHidden(hide);
+
+                        // console.log(props.hidden[props.index])
+                        // console.log(props.setHidden(close))
+                        // props.hidden[props.index]
 					}
 				}>닫기</button>
 			</div>

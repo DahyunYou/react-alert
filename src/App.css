@@ -53,7 +53,7 @@
         padding:0 20px;
     }
 
-    &.disabled {
+    &.hidden {
         visibility:hidden;
     }
 }
