@@ -1,0 +1,59 @@
+.App {
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.alert {
+    display:flex;
+    align-items:center;
+    width:500px;
+    height:100px;
+    padding:0 0 0 30px;
+    box-sizing:border-box;
+    [class*='ico'] {
+        position:relative;
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        border:4px solid #222;
+        background-image:url('./img/ico.png');
+        background-position:center;
+        background-size:cover;
+        background-repeat:no-repeat;
+    }
+    &:has(.ico1) {
+        background-color:red;
+        order:0;
+        > p {color:#222;}
+    }
+    &:has(.ico2) {
+        background-color:yellow;
+        order:1;
+        > p {color:#222;}
+    }
+    &:has(.ico3) {
+        background-color:green;
+        order:2;
+        > p {color:yellow;}
+    }
+    
+    > p {
+        width:70%;
+        padding:0 20px;
+        font-size:20px;
+        font-weight:600;
+        box-sizing:border-box;
+    }
+
+    .btn_area {
+        display:flex;
+        flex-direction:column;
+        gap:10px 0;
+        padding:0 20px;
+    }
+
+    &.disabled {
+        visibility:hidden;
+    }
+}
