@@ -9,12 +9,19 @@ function App() {
     let [isOn, setIsOn] = useState(false);
 
     useEffect(() => {
-        const timer = setInterval(() => {
+        const timer = setTimeout(() => {
             setIsOn(true);
         }, 800);
 
         return () => clearTimeout(timer);
     }, []);
+
+    // 알림창 정렬
+    useEffect(() => {
+        data.sort(function(a, b) {
+            return a.Code - b.Code
+        });
+    })
 	// let alertsClose = () => {
 	// 	setClose(!close);
 	// }
@@ -50,15 +57,15 @@ function App() {
 			{
 				alerts.map((a, i) => {
 					return (
-						close == true
+						a.State == true
 						? <Alert
-							alertItem={alerts[i]}
+							// alertItem={alerts[i]}
 							alerts={alerts}
                             hidden={hidden}
 							index={i}
 							key={i}
-							close={close}
-							// setClose={setClose}
+                            // close={close}
+							setClose={setClose}
 							setAlerts={setAlerts}
                             setHidden={setHidden}
 							// alertsClose1={btnConfirm}
@@ -66,7 +73,7 @@ function App() {
 							// btnConfirm={btnConfirm}
 							// option1={hidden}
 							/>
-						: null						
+						: null
 					)
 				})
 			}
@@ -101,8 +108,8 @@ function Alert(props) {
         className={`alert ${props.hidden[props.index] ? props.hidden[props.index] : ''}`}
         >
         {/* <div className='alert'> */}
-			<span className={'ico' + (parseInt(props.alertItem.Code) + 1)}></span>
-			<p>{props.alertItem.Msg}</p>
+			<span className={'ico' + (parseInt(props.alerts[props.index].Code) + 1)}></span>
+			<p>{props.alerts[props.index].Msg}</p>
 
 			<div className='btn_area'>
 				<button type='button' className='btn_confirm'
@@ -111,9 +118,17 @@ function Alert(props) {
 					// props.btnConfirm
 					// AI 활용
 					() => {
-						let confirm = [...props.alerts];
-						confirm.splice(props.index, 1);
+						let confirm = [...props.alerts]
+                        confirm[props.index] = {...confirm[props.index], State: false}
+
+                        // confirm[props.index].State = false; => 값을 직접 변경(오류)
+						// confirm.splice(props.index, 1);
 						props.setAlerts(confirm);
+                        props.setClose(confirm[props.index]);
+
+                        // console.log(props.alerts[props.index].State)
+                        // console.log({...confirm[props.index], State: false})
+                        // console.log(confirm)
 					}
 				}
 				>확인</button>
