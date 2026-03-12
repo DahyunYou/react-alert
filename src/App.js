@@ -121,6 +121,7 @@ function Alert(props) {
 						let confirm = [...props.alerts]
                         confirm[props.index] = {...confirm[props.index], State: false}
 
+                        // 배열 안에 일반 글자가 있는 경우 값만 바꾸면 되기 때문에 직접 변경해도 무관하나, 배열 안에 객체가 있는 경우 한번 더 복사해서 객체 안의 값을 바꿔야 함.
                         // confirm[props.index].State = false; => 값을 직접 변경(오류)
 						// confirm.splice(props.index, 1);
 						props.setAlerts(confirm);
